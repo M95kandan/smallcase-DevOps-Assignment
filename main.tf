@@ -4,7 +4,7 @@ provider "aws" {
 
 data "aws_ami" "ubuntu_latest" {
   most_recent = true
-  owners = ["099720109477"] # Canonical
+  owners      = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
@@ -25,8 +25,8 @@ resource "aws_instance" "smallcase-ass-ec2" {
   }
 
   root_block_device {
-    encrypted   = true
-    kms_key_id  = aws_kms_key.kms.arn
+    encrypted  = true
+    kms_key_id = aws_kms_key.kms.arn
   }
 
   ebs_block_device {
@@ -89,13 +89,10 @@ resource "null_resource" "ansible_playbook_execution" {
 resource "aws_kms_key" "kms" {
   description = "KMS key for EBS volume encryption"
 }
-resource "null_resource" "cleanUpInventory"{
 
-       
-        provisioner = "local-exec" {
-         when = destroy
-        command = "rm -f inventory"
-
-}
-
+resource "null_resource" "cleanUpInventory" {
+  provisioner "local-exec" {
+    when    = destroy
+    command = "rm -f inventory"
+  }
 }
