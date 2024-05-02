@@ -89,3 +89,13 @@ resource "null_resource" "ansible_playbook_execution" {
 resource "aws_kms_key" "kms" {
   description = "KMS key for EBS volume encryption"
 }
+resource "null_resource" "cleanUpInventory"{
+
+       
+        provisioner = "local-exec" {
+         when = destroy
+        command = "rm -f inventory"
+
+}
+
+}
