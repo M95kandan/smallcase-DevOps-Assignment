@@ -64,6 +64,8 @@ resource "aws_security_group" "new_instance_sg" {
 }
 
 resource "null_resource" "ansible_inventory" {
+  depends_on = [aws_instance.smallcase-ass-ec2] # Add dependency on EC2 instance creation
+
   triggers = {
     ansibleWebPlaybook = timestamp()
   }
@@ -77,6 +79,8 @@ resource "null_resource" "ansible_inventory" {
 }
 
 resource "null_resource" "ansible_playbook_execution" {
+  depends_on = [null_resource.ansible_inventory] # Ensure the inventory is generated before running playbooks
+
   provisioner "local-exec" {
     command = "ansible-playbook -i inventory docker-build.yml"
   }
