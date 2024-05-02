@@ -1,0 +1,28 @@
+---
+- hosts: smallcase-docker
+  become: yes
+
+  tasks:
+    - name: Install Docker
+      package:
+        name: docker
+        state: present
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Pull Docker image
+      docker_image:
+        name: m95kandan/smallcase
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: smallcase
+        image: smallcase
+        ports:
+          - "8081:8081"
+        restart_policy: unless-stopped
