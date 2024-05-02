@@ -1,0 +1,26 @@
+- hosts: localhost
+  connection: local
+  become: true
+  vars:
+    docker_hub_username: "{{ lookup('env', 'DOCKER_HUB_USERNAME') }}"
+    docker_hub_password: "{{ lookup('env', 'DOCKER_HUB_PASSWORD') }}"
+  tasks:
+
+    - name: Build Docker image
+      docker_image:
+        name: m95kandan/smallcase
+        build:
+          path: /home/ec2-user/smallcase-DevOps-Assignment  
+          dockerfile: Dockerfile 
+        source: build
+
+    - name: Log into Docker Hub
+      docker_login:
+        username: "{{ docker_hub_username }}"
+        password: "{{ docker_hub_password }}"
+
+    - name: Push Docker image to Docker Hub
+      docker_image:
+        name: m95kandan/smallcase  
+        push: true
+        source: local
