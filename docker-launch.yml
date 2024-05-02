@@ -3,18 +3,41 @@
   become: yes
 
   tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
 
     - name: Install Docker
       apt:
         name: docker-ce
         state: present
-        update_cache: true
 
     - name: Start Docker service
-      systemd:
+      service:
         name: docker
-        enabled: yes
         state: started
+        enabled: yes
 
     - name: Pull Docker image
       docker_image:
