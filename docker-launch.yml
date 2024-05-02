@@ -3,10 +3,30 @@
   become: yes
 
   tasks:
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker apt repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
     - name: Install Docker
-      package:
+      apt:
         name: docker
         state: present
+        update_cache: true
 
     - name: Start Docker service
       systemd:
@@ -22,7 +42,7 @@
     - name: Run Docker container
       docker_container:
         name: smallcase
-        image: smallcase
+        image: m95kandan/smallcase
         ports:
           - "8081:8081"
         restart_policy: unless-stopped
