@@ -18,7 +18,7 @@ resource "aws_instance" "smallcase-ass-ec2" {
   subnet_id                   = "subnet-02f6fef4e83cde20d" # Update with a subnet in your VPC
   associate_public_ip_address = true
   key_name                    = "smallcase-ass.pem" # Update with your key name
-  security_groups             = [aws_security_group.instance_sg.id] # Changed to use security group ID
+  security_groups             = [aws_security_group.new_instance_sg.id] # Changed to use new security group ID
 
   tags = {
     Name = "Backend Instance"
@@ -37,9 +37,9 @@ resource "aws_instance" "smallcase-ass-ec2" {
   }
 }
 
-resource "aws_security_group" "instance_sg" {
-  name        = "instance_sg"
-  description = "Security group for EC2 instance"
+resource "aws_security_group" "new_instance_sg" {
+  name        = "new_instance_sg"
+  description = "New security group for EC2 instance"
 
   ingress {
     from_port   = 22
