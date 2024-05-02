@@ -4,7 +4,7 @@ provider "aws" {
 
 data "aws_ami" "ubuntu_latest" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical
+  owners      = ["099720109477"] 
 
   filter {
     name   = "name"
@@ -18,7 +18,7 @@ resource "aws_instance" "smallcase-ass-ec2" {
   subnet_id                   = "subnet-00becfc5e28a8e977" # Update with a subnet in your VPC
   associate_public_ip_address = true
   key_name                    = "smallcase-ass" # Update with your key name
-  security_groups             = [aws_security_group.new_instance_sg.id] # Changed to use new security group ID
+  security_groups             = [aws_security_group.new_instance_sg.id] 
 
   tags = {
     Name = "Backend Instance"
@@ -79,7 +79,7 @@ resource "null_resource" "ansible_inventory" {
 }
 
 resource "null_resource" "ansible_playbook_execution" {
-  depends_on = [null_resource.ansible_inventory] # Ensure the inventory is generated before running playbooks
+  depends_on = [null_resource.ansible_inventory] 
 
   provisioner "local-exec" {
     command = "ansible-playbook -i inventory docker-build.yml"
