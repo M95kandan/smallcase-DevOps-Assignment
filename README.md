@@ -1,0 +1,1 @@
+# smallcase-DevOps-Assignment
