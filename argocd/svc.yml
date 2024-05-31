@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: agro-app
 spec:
   selector:
-    app.kubernetes.io/name: proxy
+    name: sc-stage-demo
   ports:
-  - name: name-of-service-port
+  - name: sc-stage-svc
     protocol: TCP
     port: 80
-    targetPort: http-web-svc
+    targetPort: 8081
