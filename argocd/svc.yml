@@ -9,5 +9,5 @@ spec:
   - name: sc-stage-svc
     protocol: TCP
     port: 81
-    targetPort: 8081
+    targetPort: 80
   type: LoadBalancer  
