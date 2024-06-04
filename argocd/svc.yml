@@ -4,7 +4,7 @@ metadata:
   name: agro-app
 spec:
   selector:
-    name: sc-stage-demo
+    app: sc-stage-demo
   ports:
   - name: sc-stage-svc
     protocol: TCP
