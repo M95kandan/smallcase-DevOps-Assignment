@@ -18,4 +18,4 @@ spec:
       - name: sc-stage-demo
         image: m95kandan/website
         ports:
-        - containerPort: 8081
+        - containerPort: 80
