@@ -15,7 +15,7 @@ spec:
         app: sc-stage-demo
     spec:
       containers:
-      - name: argo-app
+      - name: sc-stage-demo
         image: m95kandan/smallcase
         ports:
         - containerPort: 8081
