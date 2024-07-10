@@ -15,7 +15,7 @@ spec:
         app: sc-stage-demo
     spec:
       containers:
-      - name: sc-stage-demo
+      - app: sc-stage-demo
         image: m95kandan/website
         ports:
         - containerPort: 80
