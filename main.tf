@@ -12,12 +12,12 @@ data "aws_ami" "ubuntu_latest" {
   }
 }
 
-resource "aws_instance" "smallcase-ass-ec2" {
+resource "aws_instance" "smallcase-assessment-ec2" {
   ami                         = data.aws_ami.ubuntu_latest.id
   instance_type               = "t2.micro"
   subnet_id                   = "subnet-00becfc5e28a8e977" # Update with a subnet in your VPC
   associate_public_ip_address = true
-  key_name                    = "smallcase-ass" # Update with your key name
+  key_name                    = "smallcase-assessment" 
   security_groups             = [aws_security_group.new_instance_sg.id] 
 
   tags = {
